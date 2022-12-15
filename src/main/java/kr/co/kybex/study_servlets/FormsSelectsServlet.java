@@ -13,14 +13,14 @@ public class FormsSelectsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PrintWriter printWriter = response.getWriter();
 
-        String title = "Forms Selects";
+        String title = "Forms Selects Servlet";
 
         printWriter.println("<html lang='en'>");
         printWriter.println("<head>");
         printWriter.println("<meta charset='UTF-8' />");
         printWriter.println("<meta http-equiv='X-UA-Compatible' content='IE=edge' />");
         printWriter.println("<meta name='viewport' content='width=device-width, initial-scale=1.0' />");
-        printWriter.println("<title>Document</title>");
+        printWriter.println("<title>" + title + "</title>");
         printWriter.println("<link");
         printWriter.println("href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css'");
         printWriter.println("rel='stylesheet'");
@@ -35,7 +35,7 @@ public class FormsSelectsServlet extends HttpServlet {
         printWriter.println("</h3>");
         printWriter.println("</div>");
         printWriter.println("<hr />");
-        printWriter.println("<div>form selects</div>");
+        printWriter.println("<div>form selects servlet</div>");
         printWriter.println("<div>");
         printWriter.println("<label for='' class='form-label'>select</label>");
         printWriter.println("<select class='form-select' aria-label=''>");
