@@ -2,6 +2,7 @@ package kr.co.kybex.study_servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,9 +12,13 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = "/searchFormServlet")
 public class SearchFormsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html;charset=UTF-8"); // 한글세팅
         PrintWriter printWriter = response.getWriter();
 
-        String title = "Search";
+        DatasInfor datasInfor = new DatasInfor();
+        HashMap<String, String> searchFormData = datasInfor.getSearchFormData();
+
+        String title = searchFormData.get("search_key");
 
         printWriter.println("<html lang='en'>");
         printWriter.println("<head>");
@@ -29,7 +34,7 @@ public class SearchFormsServlet extends HttpServlet {
         printWriter.println("<link rel='stylesheet' href='./css/commons.css' />");
         printWriter.println("</head>");
         printWriter.println("<body>");
-        printWriter.println("<div>Search Form</div>");
+        printWriter.println("<div>Search Form - " + searchFormData.get("name") + "</div>");
         printWriter.println("<form action=''>");
         printWriter.println("<div class='container'>");
         printWriter.println("<div>");
