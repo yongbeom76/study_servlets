@@ -11,24 +11,31 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import kr.co.kybex.study_servlets.DatasInfor;
+import kr.co.kybex.study_servlets.beans.MemberBean;
 
-@WebServlet(urlPatterns = "/tablesWithBeanServlets")
-public class TablesWithBeanServlets extends HttpServlet {
+@WebServlet(urlPatterns = "/tablesBeanListServlets")
+public class TablesBeanListServlets extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         response.setContentType("text/html;charset=UTF-8"); // 한글세팅
         DatasInfor datasInfor = new DatasInfor();
-        ArrayList<String> tablesListWithString = datasInfor.getTablesListWithString();
-        PrintWriter printWriter = response.getWriter();
+        // MemberBean memberBean = datasInfor.getDataWithMemberBean();
+        HashMap<String, Object> bundlesData = datasInfor.getBundlesData();
 
-        HashMap<String, String> searchForm = datasInfor.getSearchFormData();
+        // ArrayList<String> tablesListWithString =
+        // datasInfor.getTablesListWithString();
+
+        // Display area
+        PrintWriter printWriter = response.getWriter();
+        // HashMap<String, String> searchForm = datasInfor.getSearchFormData();
         printWriter.println("<html lang='en'>");
         printWriter.println("<head>");
         printWriter.println("<meta charset='UTF-8' />");
         printWriter.println("<meta http-equiv='X-UA-Compatible' content='IE=edge' />");
         printWriter.println("<meta name='viewport' content='width=device-width, initial-scale=1.0' />");
-        printWriter.println("<title>" + searchForm.get("search_key") + "</title>");
+        printWriter.println("<title>Tables Bean List Servlets</title>");
         printWriter.println("<link");
         printWriter.println("href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css'");
         printWriter.println("rel='stylesheet'");
@@ -39,6 +46,14 @@ public class TablesWithBeanServlets extends HttpServlet {
         printWriter.println("<body>");
         printWriter.println("   <div class='container'>");
         printWriter.println("       <div class='fs-3'>Tables Normal</div>");
+
+        MemberBean memberBean2 = (MemberBean) bundlesData.get("dataWithMemberBean");
+        printWriter.println("<div class='fs-4'>" + memberBean2.getFirstName() + " " + memberBean2.getSecondName() + " "
+                + memberBean2.getHandleName() + "</div>");
+        // printWriter.println("<div class='fs-4'>" + memberBean.getFirstName() + " " +
+        // memberBean.getSecondName() + " "
+        // + memberBean.getHandleName() + "</div>");
+
         printWriter.println("           <table class='table'>");
         printWriter.println("               <thead>");
         printWriter.println("                   <tr>");
@@ -49,15 +64,21 @@ public class TablesWithBeanServlets extends HttpServlet {
         printWriter.println("                   </tr>");
         printWriter.println("               </thead>");
         printWriter.println("               <tbody>");
-        for (int i = 0; i < tablesListWithString.size(); i++) {
 
+        ArrayList<MemberBean> dataListWithMemberBean = (ArrayList<MemberBean>) bundlesData
+                .get("dataListWithMemberBean");
+
+        for (int i = 0; i < dataListWithMemberBean.size(); i++) {
+            MemberBean memberBean = dataListWithMemberBean.get(i);
             printWriter.println("                   <tr>");
             printWriter.println("                       <th scope=2>" + (i + 1) + "</th>");
-            String handle = tablesListWithString.get(i);
+            String handle = memberBean.getHandleName();
+
+            printWriter.println("                       <td>" + memberBean.getFirstName() + "</td>");
+            printWriter.println("                       <td>" + memberBean.getSecondName() + "</td>");
             printWriter.println("                       <td>" + handle + "</td>");
             printWriter.println("                   </tr>");
         }
-
         printWriter.println("               </tbody>");
         printWriter.println("       </table>");
 
