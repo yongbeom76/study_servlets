@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %> 
 <%-- 한글세팅 --%>
-<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.HashMap,java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -12,18 +12,32 @@
 	<body>
 	<% 
 		HashMap<String, Object> question = (HashMap<String, Object>) request.getAttribute("question");
+		ArrayList questionsUidList = (ArrayList) request.getAttribute("questionsUidList");
+		ArrayList answersList = (ArrayList) request.getAttribute("answersList");
+		String questionsUid = (String) request.getAttribute("questionsUid");
 	%>
-		<div>
-			<a href="/polls/PollServlet?QUESTIONS_UID=Q1">Q1</a> /
-			<a href="/polls/PollServlet?QUESTIONS_UID=Q2">Q2</a> /
-			<a href="/polls/PollServlet?QUESTIONS_UID=Q3">Q3</a> /
-			<a href="/polls/PollServlet?QUESTIONS_UID=Q4">Q4</a> /
-			<a href="/polls/PollServlet?QUESTIONS_UID=Q5">Q5</a>
-			
+		<div> <%-- Q1/Q2/Q3/Q4/Q5 --%>
+		<% 
+			for (int i = 0; i < questionsUidList.size(); i++) {
+		%>
+			<a href="/polls/PollServlet?QUESTIONS_UID=<%= questionsUidList.get(i)%>"><%= questionsUidList.get(i)%></a> /
+		<%
+			}
+		%>
 		</div>
-		<div>
+		<div> <%-- 2. 주문시 직원은 고객님께 친절 하였습니까?</div> --%>
 			<%= question.get("ORDERS") %>. <%= question.get("QUESTIONS")%>
-			<%-- 2. 주문시 직원은 고객님께 친절 하였습니까?</div> --%>
-		<div>(1) 전혀 아니다 (2) 아니다 (3) 보통이다</div>
+		</div>
+		<div> <%-- (1) 전혀 아니다 (2) 아니다 (3) 보통이다 --%>
+			<%
+				for (int i=0; i<answersList.size();i++) { %>
+					<span>
+						<input type="radio" id="radio_<%=i%>" name="radio_<%=questionsUid %>" value="HTML">
+						<label for="radio_<%=i%>">(<%= i+1%>)<%=answersList.get(i)%></label>
+					</span>
+			<%
+				}
+			%>
+		</div>
 	</body>
 </html>
