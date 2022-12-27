@@ -47,6 +47,17 @@
 					}
 				%>
 			</div>
+			<div> <%-- (1) 전혀 아니다 (2) 아니다 (3) 보통이다 --%>
+				<%
+					ArrayList<HashMap> answer_list = null;
+					answer_list = (ArrayList<HashMap>) request.getAttribute("answer_list");
+					for (int i=0; i<answer_list.size();i++) {
+						HashMap<String,Object> answer = answer_list.get(i);
+				%>
+				<div>(<%=answer.get("ORDERS") %>) <%=answer.get("EXAMPLE")%></div>
+
+				<%} %>
+			</div>
 		</div>
 		<script
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

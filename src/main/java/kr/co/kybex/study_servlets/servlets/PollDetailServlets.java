@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import kr.co.kybex.study_servlets.dao.PollWithDB;
 
 @WebServlet(urlPatterns = "/polls/PollServlet")
-public class DetailServlets extends HttpServlet {
+public class PollDetailServlets extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -28,6 +28,7 @@ public class DetailServlets extends HttpServlet {
         ArrayList questionsUidList = null;
         ArrayList exampleUidList = null;
         ArrayList answersList = null;
+        ArrayList<HashMap> answer_list = null;
         try {
             question = pollWithDB.getQuestion(questions_Uid);
             questionsUidList = pollWithDB.getQuestionsUidList();
@@ -41,15 +42,25 @@ public class DetailServlets extends HttpServlet {
             System.out.println(questionsUidList);
             System.out.println(exampleUidList);
             System.out.println(answersList);
+
+            answer_list = pollWithDB.getAnswers_List(questions_Uid);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        for (int i = 0; i < answer_list.size(); i++) {
+            HashMap<String, Object> answer = answer_list.get(i);
+            System.out.println(answer.get("ORDERS"));
+            System.out.println(answer.get("EXAMPLE"));
+        }
+
         // output with html
         request.setAttribute("question", question);
         request.setAttribute("questionsUidList", questionsUidList);
         request.setAttribute("exampleUidList", exampleUidList);
         request.setAttribute("answersList", answersList);
         request.setAttribute("questionsUid", questions_Uid);
+
+        request.setAttribute("answer_list", answer_list);
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/polls/details.jsp");
         requestDispatcher.forward(request, response);
