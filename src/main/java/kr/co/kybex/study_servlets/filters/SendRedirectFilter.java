@@ -12,7 +12,7 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebFilter("/simple/*")
+// @WebFilter("/simple/*")
 public class SendRedirectFilter implements Filter {
     @Override
     public void destroy() {

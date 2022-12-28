@@ -12,7 +12,7 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebFilter("/session/*")
+// @WebFilter("/session/*")
 public class SessionsFilter implements Filter {
     @Override
     public void destroy() {

@@ -12,7 +12,7 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebFilter("/*") // 모든 요청을 다 filtering 하겠다.
+// @WebFilter("/*") // 모든 요청을 다 filtering 하겠다.
 public class SimpleFilter implements Filter {
     @Override
     public void destroy() {
