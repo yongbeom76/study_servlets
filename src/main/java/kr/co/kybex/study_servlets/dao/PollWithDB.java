@@ -6,8 +6,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.mysql.cj.protocol.Resultset;
-
 public class PollWithDB {
     public ArrayList<HashMap> getAnswers_List(String questionsUid) throws SQLException {
         Commons commons = new Commons();
